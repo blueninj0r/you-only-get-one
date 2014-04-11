@@ -1,9 +1,10 @@
 var Game = (function () {
-	var map = MAP.createMap(64, 64);
+	var map = MAP.createMap(32, 32);
 
 	var populatePlayer = function (map) {
 		var coords = map.getPlayerStartCoords();
-		Crafty.e('PlayerCharacter').onMap(map).at(coords.x, coords.y);
+		var camera = Crafty.e('Camera, WiredHitBox').onMap(map).at(coords.x, coords.y).debugStroke("white");
+		Crafty.e('PlayerCharacter').onMap(map).at(coords.x, coords.y).attach(camera);
 	};
 
 	var populatePhotographable = function (map) {
@@ -17,11 +18,11 @@ var Game = (function () {
 					else {
 						var rand = Math.random();
 						if (rand < 0.02) {
-							Crafty.e('Bird').onMap(map).at(i, j);
+							Crafty.e('Bird, WiredHitBox').onMap(map).at(i, j).debugStroke("white");
 						}
 						else if (rand < 0.2) {
 							console.log("tree");
-							Crafty.e('Tree').onMap(map).at(i, j);
+							Crafty.e('Tree, WiredHitBox').onMap(map).at(i, j).debugStroke("white");
 						}
 					}}
 				}
@@ -33,11 +34,13 @@ var Game = (function () {
 		console.log("Starting!!!");		
 		Crafty.init(map.width(), map.height());
 		Crafty.background('green');
-		populatePhotographable(map);
 		populatePlayer(map);
+		populatePhotographable(map);		
 	};
 
 	return {
-		start: start
+		start: start,
+		currentPhotographValue: 0,
+		totalScore: 0
 	};
 }());

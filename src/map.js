@@ -14,11 +14,15 @@ var MAP = (function () {
 
 	var isEdgeCoord = function (x, y) {
 		return x === 0 || y === 0 || x === (gridWidth - 1) || y === (gridHeight - 1);
-	};
+	};	
 
 	var isPlayerStartCoords = function (x, y) {
 		return (x === gridWidth/2) && (y == gridHeight/2);
 	};
+
+	var isInStartArea = function (x, y){
+		
+	}
 
 	var getPlayerStartCoords = function () {
 		return { x: (gridWidth/2), y: (gridHeight/2)};
