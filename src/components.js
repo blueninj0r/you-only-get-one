@@ -23,9 +23,9 @@
 			else 
 			{
 				this.attr({ x: x * this.w, y: y * this.h });
-	  			return this;
-	  		}
-	  	}
+				return this;
+			}
+		}
 	});
 
 	// An "Actor" is an entity that is drawn in 2D on canvas
@@ -38,29 +38,41 @@
 
 	Crafty.c('Tree', {
 		init: function () {
-			this.requires('Actor');
+			this.requires('Actor, Solid');
 			this.color('rgb(67, 164, 11)');
 		}
 	});
 
 	Crafty.c('Fence', {
 		init: function () {
-			this.requires('Actor');
+			this.requires('Actor, Solid');
 			this.color('rgb(198, 125, 42)');
 		}
 	});
 
 	Crafty.c('Bird', {
 		init: function () {
-			this.requires('Actor');
+			this.requires('Actor, Solid');
 			this.color('black');
 		}
 	});
 
 	Crafty.c('PlayerCharacter', {
 		init: function () {
-			this.requires('Actor');
+			this.requires('Actor, Fourway, Collision');
 			this.color('red');
+			this.fourway(2);
+			this.stopOnSolids();
+		},
+		stopOnSolids: function () {
+			this.onHit('Solid', this.stopMovement);
+		},
+		stopMovement: function () {
+			this._speed = 0;
+			if (this._movement) { 
+				this.x -= this._movement.x;
+				this.y -= this._movement.y;
+			}
 		}
-	})
+	});
 }());
