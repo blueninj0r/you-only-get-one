@@ -21,7 +21,7 @@ var MAP = (function () {
 	};
 
 	var isInStartArea = function (x, y){
-		
+		return x 
 	}
 
 	var getPlayerStartCoords = function () {

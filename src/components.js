@@ -38,7 +38,7 @@
  	
 	Crafty.c('Camera', {
 		init: function () { 
-			this.requires('2D, Grid, Collision');			
+			this.requires('2D, Grid, Collision, Multiway');			
 			this.collision([-50,-50], [-50, 70], [70, 70], [70, -50]);
 		}
 	});
@@ -47,20 +47,7 @@
 		init: function () {
 			this.requires('Collision');
 			this._photoValue = 1;
-			this._inPhoto = false;
-			this.updateOnCollision();			
-		},
-
-		addToPhoto: function () {
-			if (!this._inPhoto){			
-				Game.currentPhotographValue += this._photoValue;
-				this._inPhoto = true;
-				console.log("hi");	
-			}
-		},
-
-		updateOnCollision: function () {
-			this.onHit('Camera', this.addToPhoto);
+			this._inPhoto = false;		
 		},
 
 		setPhotoValue: function (val) {
@@ -98,9 +85,9 @@
 
 	Crafty.c('PlayerCharacter', {
 		init: function () {
-			this.requires('Actor, Fourway, Collision');
+			this.requires('Actor, Multiway, Collision');
 			this.color('red');
-			this.fourway(2);
+			this.multiway(1, {UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180})
 			this.stopOnSolids();
 		},
 		stopOnSolids: function () {
